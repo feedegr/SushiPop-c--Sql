@@ -10,10 +10,10 @@
         
         public decimal DescuentoMaximo { get; set;}
 
-        public bool Activo { get; set;}
+        public bool? Activo { get; set;}
         
         public int ProductoId { get; set; }
 
-        public Producto Producto { get; set; }
+        public Producto? Producto { get; set; }
     }
 }

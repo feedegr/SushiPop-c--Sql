@@ -8,6 +8,6 @@
         public string Telefono {  get; set; }
         public string DetalleReclamo { get; set; }
         public int PedidoId { get; set; }
-        public Pedido Pedido { get; set;}
+        public Pedido? Pedido { get; set;}
     }
 }

@@ -6,9 +6,9 @@
 
         public string Local { get; set; }
 
-        public DateTime FechaHora { get; set; }
+        public DateTime? FechaHora { get; set; }
 
-        public bool Confirmada { get; set;}
+        public bool? Confirmada { get; set;}
 
         public string Nombre { get; set; }
 
@@ -16,6 +16,6 @@
 
         public int ClienteId { get; set; }
 
-        public Cliente Cliente { get; set; }
+        public Cliente? Cliente { get; set; }
     }
 }

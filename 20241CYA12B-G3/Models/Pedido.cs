@@ -6,7 +6,7 @@
         
         public int NroPedido { get; set; }
 
-        public DateTime FechaCompra {  get; set; }
+        public DateTime? FechaCompra {  get; set; }
 
         public decimal Subtotal { get; set; }
 
@@ -18,8 +18,8 @@
 
         public int CarritoId { get; set; }
 
-        public Carrito Carrito { get; set; }
+        public Carrito? Carrito { get; set; }
 
-        public virtual Reclamo Reclamo { get; set; }
+        public virtual Reclamo? Reclamo { get; set; }
     }
 }

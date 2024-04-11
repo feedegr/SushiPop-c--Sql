@@ -4,16 +4,16 @@
     {
         public int Id { get; set; }
 
-        public bool Procesado { get; set; }
+        public bool? Procesado { get; set; }
 
-        public bool Cancelado { get; set; }
+        public bool? Cancelado { get; set; }
 
         public int ClienteId { get; set; }
 
-        public Cliente Cliente { get; set; }
+        public Cliente? Cliente { get; set; }
 
-        public virtual Pedido Pedido { get; set; }
+        public virtual Pedido? Pedido { get; set; }
 
-        public ICollection<CarritoItem> CarritoItems { get; set; }
+        public ICollection<CarritoItem>? CarritoItems { get; set; }
     }
 }
