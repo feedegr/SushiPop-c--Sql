@@ -10,7 +10,7 @@
 
         public string Direccion { get; set;}
 
-        public int Telefono { get; set;}
+        public string Telefono { get; set;}
 
         public DateTime FechaNacimiento { get; set;}
 

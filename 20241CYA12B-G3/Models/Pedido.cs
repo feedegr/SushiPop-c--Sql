@@ -14,9 +14,11 @@
 
         public decimal Total { get  ; set; }
 
-        public bool Estado { get; set;}
+        public int Estado { get; set;}
 
         public int CarritoId { get; set; }
+
+        public Carrito Carrito { get; set; }
 
         public virtual Reclamo Reclamo { get; set; }
     }

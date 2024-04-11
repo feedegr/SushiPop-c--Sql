@@ -13,5 +13,7 @@
         public bool Activo { get; set;}
         
         public int ProductoId { get; set; }
+
+        public Producto Producto { get; set; }
     }
 }

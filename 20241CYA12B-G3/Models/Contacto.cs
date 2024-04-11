@@ -12,8 +12,6 @@
 
         public string Mensaje { get; set;}
 
-        public bool Tipo { get; set;}
-
-
+        public bool Leido { get; set;} 
     }
 }

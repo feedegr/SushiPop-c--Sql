@@ -18,6 +18,10 @@
 
         public int CategoriaId { get; set; }
 
-        public Descuento descuento { get; set; }
+        public Categoria Categoria { get; set; }
+
+        public ICollection<Descuento> Descuentos { get; set; } // era una coleccion
+    
+        public ICollection<CarritoItem> CarritoItems { get; set; }
     }
 }
