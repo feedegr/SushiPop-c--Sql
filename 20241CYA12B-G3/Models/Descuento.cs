@@ -4,9 +4,9 @@
     {
         public int Id { get; set; }
 
-        public DateTime Dia { get; set;}
+        public int Dia { get; set;}
 
-        public decimal Porcentaje {  get; set;}
+        public int Porcentaje {  get; set;}
         
         public decimal DescuentoMaximo { get; set;}
 

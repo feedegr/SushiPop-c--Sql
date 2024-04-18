@@ -1,6 +1,6 @@
 ﻿namespace _20241CYA12B_G3.Models
 {
-    public class Usuario
+    public abstract class Usuario
     {
         public int Id { get; set; }
 

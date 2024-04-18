@@ -6,7 +6,7 @@
 
         public string Nombre { get; set; }
 
-        public string Description { get; set; }
+        public string Descripcion { get; set; }
 
         public decimal Precio { get; set; }
 
@@ -20,7 +20,7 @@
 
         public Categoria? Categoria { get; set; }
 
-        public ICollection<Descuento>? Descuentos { get; set; } // era una coleccion
+        public ICollection<Descuento>? Descuentos { get; set; } 
     
         public ICollection<CarritoItem>? CarritoItems { get; set; }
     }
