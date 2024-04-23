@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using _20241CYA12B_G3.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-    public class DbContext : Microsoft.EntityFrameworkCore.DbContext
+public class DbContext : IdentityDbContext
     {
         public DbContext (DbContextOptions<DbContext> options)
             : base(options)
