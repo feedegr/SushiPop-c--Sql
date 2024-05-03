@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _20241CYA12B_G3.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace _20241CYA12B_G3.Controllers
 {
     public class CategoriasController : Controller
     {
         private readonly DbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public CategoriasController(DbContext context)
+        public CategoriasController(DbContext context, private readonly UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = UserManager;
         }
 
         // GET: Categorias
@@ -26,8 +29,9 @@ namespace _20241CYA12B_G3.Controllers
                           Problem("Entity set 'DbContext.Categoria'  is null.");
         }
 
-        // GET: Categorias/Details/5
-        public async Task<IActionResult> Details(int? id)
+    // GET: Categorias/Details/5
+    [Authorize(Roles = "EMPLEADO")]
+    public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Categoria == null)
             {
@@ -44,8 +48,9 @@ namespace _20241CYA12B_G3.Controllers
             return View(categoria);
         }
 
-        // GET: Categorias/Create
-        public IActionResult Create()
+    // GET: Categorias/Create
+    [Authorize(Roles = "EMPLEADO")]
+    public IActionResult Create()
         {
             return View();
         }
@@ -55,7 +60,8 @@ namespace _20241CYA12B_G3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion")] Categoria categoria)
+    [Authorize(Roles = "EMPLEADO")]
+    public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion")] Categoria categoria)
         {
             if (ModelState.IsValid)
             {
@@ -66,8 +72,9 @@ namespace _20241CYA12B_G3.Controllers
             return View(categoria);
         }
 
-        // GET: Categorias/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+    // GET: Categorias/Edit/5
+    [Authorize(Roles = "EMPLEADO")]
+    public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Categoria == null)
             {
@@ -117,8 +124,9 @@ namespace _20241CYA12B_G3.Controllers
             return View(categoria);
         }
 
-        // GET: Categorias/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+    // GET: Categorias/Delete/5
+    [Authorize(Roles = "EMPLEADO")]
+    public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Categoria == null)
             {
