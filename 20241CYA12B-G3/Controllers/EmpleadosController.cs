@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _20241CYA12B_G3.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _20241CYA12B_G3.Controllers
 {
@@ -19,6 +20,7 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Empleados
+        [Authorize(Roles = "ADMIN,EMPLEADO")]
         public async Task<IActionResult> Index()
         {
               return _context.Empleado != null ? 
@@ -45,6 +47,7 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Empleados/Create
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Create()
         {
             return View();
@@ -67,6 +70,7 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Empleados/Edit/5
+        [Authorize(Roles = "EMPLEADO")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Empleado == null)

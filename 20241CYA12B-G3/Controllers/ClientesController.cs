@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _20241CYA12B_G3.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _20241CYA12B_G3.Controllers
 {
@@ -67,6 +68,7 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Clientes/Edit/5
+        [Authorize(Roles = "CLIENTE")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Cliente == null)

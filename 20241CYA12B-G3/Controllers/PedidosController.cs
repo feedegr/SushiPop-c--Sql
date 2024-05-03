@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _20241CYA12B_G3.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _20241CYA12B_G3.Controllers
 {
@@ -18,14 +19,16 @@ namespace _20241CYA12B_G3.Controllers
             _context = context;
         }
 
-        // GET: Pedidoes
+        // GET: Pedidos
+        [Authorize(Roles = "CLIENTE")]
+        [Authorize(Roles = "EMPLEADO")]
         public async Task<IActionResult> Index()
         {
             var dbContext = _context.Pedido.Include(p => p.Carrito);
             return View(await dbContext.ToListAsync());
         }
 
-        // GET: Pedidoes/Details/5
+        // GET: Pedidos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Pedido == null)
@@ -45,6 +48,7 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Pedidoes/Create
+        [Authorize(Roles = "CLIENTE")]
         public IActionResult Create()
         {
             ViewData["CarritoId"] = new SelectList(_context.Carrito, "Id", "Id");
@@ -69,6 +73,7 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Pedidoes/Edit/5
+        [Authorize(Roles = "EMPLEADO")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Pedido == null)

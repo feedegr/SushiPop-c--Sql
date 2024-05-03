@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _20241CYA12B_G3.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _20241CYA12B_G3.Controllers
 {
@@ -45,6 +46,7 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Productoes/Create
+        [Authorize(Roles = "EMPLEADO")]
         public IActionResult Create()
         {
             ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Id");
@@ -54,8 +56,10 @@ namespace _20241CYA12B_G3.Controllers
         // POST: Productoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "EMPLEADO")]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion,Precio,Foto,Stock,Costo,CategoriaId")] Producto producto)
         {
             if (ModelState.IsValid)
@@ -69,6 +73,7 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Productoes/Edit/5
+        [Authorize(Roles = "EMPLEADO")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Producto == null)
@@ -122,6 +127,7 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Productoes/Delete/5
+        [Authorize(Roles = "EMPLEADO")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Producto == null)

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _20241CYA12B_G3.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _20241CYA12B_G3.Controllers
 {
@@ -15,10 +16,10 @@ namespace _20241CYA12B_G3.Controllers
         private readonly DbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public CategoriasController(DbContext context, private readonly UserManager<IdentityUser> userManager)
+        public CategoriasController(DbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
-            _userManager = UserManager;
+            _userManager = userManager;
         }
 
         // GET: Categorias
@@ -30,7 +31,6 @@ namespace _20241CYA12B_G3.Controllers
         }
 
     // GET: Categorias/Details/5
-    [Authorize(Roles = "EMPLEADO")]
     public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Categoria == null)

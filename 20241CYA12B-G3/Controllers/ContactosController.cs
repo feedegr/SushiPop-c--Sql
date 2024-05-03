@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _20241CYA12B_G3.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _20241CYA12B_G3.Controllers
 {
@@ -18,7 +19,8 @@ namespace _20241CYA12B_G3.Controllers
             _context = context;
         }
 
-        // GET: Contactoes
+        // GET: Contactos
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> Index()
         {
               return _context.Contacto != null ? 
@@ -26,7 +28,7 @@ namespace _20241CYA12B_G3.Controllers
                           Problem("Entity set 'DbContext.Contacto'  is null.");
         }
 
-        // GET: Contactoes/Details/5
+        // GET: Contactos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Contacto == null)
@@ -44,13 +46,14 @@ namespace _20241CYA12B_G3.Controllers
             return View(contacto);
         }
 
-        // GET: Contactoes/Create
+        // GET: Contactos/Create
+
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Contactoes/Create
+        // POST: Contactos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]

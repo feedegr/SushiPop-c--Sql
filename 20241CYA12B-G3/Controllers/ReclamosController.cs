@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _20241CYA12B_G3.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _20241CYA12B_G3.Controllers
 {
@@ -45,6 +46,7 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Reclamos/Create
+        [Authorize(Roles = "CLIENTE")]
         public IActionResult Create()
         {
             ViewData["PedidoId"] = new SelectList(_context.Pedido, "Id", "Id");
