@@ -28,22 +28,26 @@ namespace _20241CYA12B_G3.Areas.Identity.Pages.Account
         private readonly IUserStore<IdentityUser> _userStore;
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+        //private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager; 
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            //IEmailSender emailSender)
+            RoleManager<IdentityRole> _roleManager; 
         {
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
-        }
+            //_emailSender = emailSender;
+            _roleManager = roleManager; 
+
+    }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -102,8 +106,37 @@ namespace _20241CYA12B_G3.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            ReturnUrl = returnUrl;
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+        // Si los roles no existen, los creo acá
+        if (!_roleManager.RoleExistsAsync("ADMIN").GetAwaiter().GetResult())
+        {
+            _roleManager.CreateAsync(new IdentityRole("ADMIN")).GetAwaiter().GetResult();
+
+            IdentityUser user = CreateUser();
+
+            string email, usuario;
+            email = usuario = "admin@ort.edu.ar";
+            await _userStore.SetUserNameAsync(user, email, CancellationToken.None);
+            await _emailStore.SetEmailAsync(user, usuario, CancellationToken.None);
+            var result = await _userManager.CreateAsync(user, "Password1!");
+
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "ADMIN");
+            }
+        }
+        if (!_roleManager.RoleExistsAsync("EMPLEADO").GetAwaiter().GetResult())
+        {
+            _roleManager.CreateAsync(new IdentityRole("EMPLEADO")).GetAwaiter().GetResult();
+        }
+        if (!_roleManager.RoleExistsAsync("CLIENTE").GetAwaiter().GetResult())
+        {
+            _roleManager.CreateAsync(new IdentityRole("CLIENTE")).GetAwaiter().GetResult();
+        }
+
+        ReturnUrl = returnUrl;
+
+        ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
