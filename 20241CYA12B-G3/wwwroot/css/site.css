@@ -1,6 +1,6 @@
 html {
-  font-size: 14px;
-}
+    font-size: 14px;
+ 
 
 @media (min-width: 768px) {
   html {
@@ -16,3 +16,34 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+* {
+    font-family: font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    color: #616572
+}
+}
+
+nav{
+    font-size: 18px;
+    display: flex;
+    
+}
+
+nav img{
+    width: 100px;
+    margin-left: 2rem;
+}
+
+nav ul{
+    justify-content: center;
+    margin: 1px;
+
+}
+
+nav a{
+    margin-left: 50px
+}
+

@@ -48,9 +48,9 @@ namespace _20241CYA12B_G3.Controllers
             return View(categoria);
         }
 
-    // GET: Categorias/Create
-    [Authorize(Roles = "EMPLEADO")]
-    public IActionResult Create()
+        // GET: Categorias/Create
+        [Authorize(Roles = "EMPLEADO")]
+        public IActionResult Create()
         {
             return View();
         }
