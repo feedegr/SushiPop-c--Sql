@@ -6,27 +6,40 @@ namespace _20241CYA12B_G3.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly DbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(DbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            //ver que numero de dia es
+            var nroDia = (int)DateTime.Today.DayOfWeek;
+
+
+            //nombre del dia
+            var nombreDelDia = System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat.GetDayName((DayOfWeek)nroDia);
+
+            HomeViewModel homeViewModel = new()
+            {
+
+                NombreDia = nombreDelDia,
+                Descuento = "35%",
+                Producto = "Combo Alaska 25 piezas"
+            };
+
+
+            
+
+
+
+            return View(homeViewModel);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+       
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        
     }
 }
