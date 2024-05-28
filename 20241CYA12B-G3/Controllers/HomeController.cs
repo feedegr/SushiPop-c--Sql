@@ -1,5 +1,6 @@
 ﻿using _20241CYA12B_G3.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace _20241CYA12B_G3.Controllers
@@ -13,26 +14,32 @@ namespace _20241CYA12B_G3.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult>Index()
         {
-            //ver que numero de dia es
+          
             var nroDia = (int)DateTime.Today.DayOfWeek;
 
-
-            //nombre del dia
             var nombreDelDia = System.Globalization.CultureInfo.GetCultureInfo("es-ES").DateTimeFormat.GetDayName((DayOfWeek)nroDia);
 
-            HomeViewModel homeViewModel = new()
-            {
-
-                NombreDia = nombreDelDia,
-                Descuento = "35%",
-                Producto = "Combo Alaska 25 piezas"
-            };
-
+            var descuento = await _context.Descuento.Include(d => d.Producto).FirstOrDefaultAsync(d => d.Dia == nroDia && d.Activo);
 
             
+            HomeViewModel homeViewModel = new();
 
+            if (descuento == null)
+            {
+
+                homeViewModel.MensajeHero = "Hoy es " + nombreDelDia + " Disfruta del mejor sushi #EnCasa con amigos";
+
+            }
+            else
+            {
+
+                homeViewModel.NombreDia = nombreDelDia;
+                homeViewModel.Descuento = descuento.Porcentaje + " %";
+                homeViewModel.Producto = descuento.Producto.Nombre;
+           
+            }
 
 
             return View(homeViewModel);

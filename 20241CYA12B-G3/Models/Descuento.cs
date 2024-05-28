@@ -24,7 +24,7 @@ namespace _20241CYA12B_G3.Models
         [Display(Name = "Activo")]
         [Required]
         [DefaultValue(true)]
-        public bool? Activo { get; set;}
+        public bool Activo { get; set;}
         
         public int ProductoId { get; set; }
 

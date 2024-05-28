@@ -5,5 +5,20 @@
 }
 
 <div class="text-center">
-       <h1>¡Hoy es @Model.NombreDia, ahorra un @Model.Descuento en @Model.Producto</h1>
+      
+    @if(Model.MensajeHero == "")
+    {
+        <h1>¡Hoy es @Model.NombreDia, ahorra un @Model.Descuento en @Model.Producto</h1>
+    }
+    else
+    {
+        <h1>@Model.MensajeHero</h1>
+
+
+    }
+    
+    
+
+
 </div>
+
