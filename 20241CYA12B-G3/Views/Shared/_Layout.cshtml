@@ -9,40 +9,40 @@
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/_20241CYA12B_G3.styles.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="Image-container"> 
+            <div class="Image-container">
                 <img src="/css/logo.png">
-                </div>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Combos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Piezas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Salads</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Entradas</a>
-                        </li>
+            </div>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Combos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Piezas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Salads</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Entradas</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Salsas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Bebidas</a>
-                    </li
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Postres</a>
                     </li>
-                    </ul>
-                </div>
+                </ul>
+                <partial name="_LoginPartial"/>
             </div>
             <i class="fa-solid fa-user"></i>
         </nav>
@@ -54,54 +54,54 @@
     </div>
 
     <footer>
-            
-           <div class="Image-div">
-                <img class="imagen-footer"src ="./css/logo.png" />
-           </div>
-           
-            <div class="first-column">
-                  <ul class="">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="" asp-action="">Combos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="" asp-action="">Piezas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="" asp-action="">Salads</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="" asp-action="">Entradas</a>
-                        </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="" asp-action="">Salsas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="" asp-action="">Bebidas</a>
-                    </li
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="" asp-action="">Postres</a>
-                    </li>
-                    </ul>
-            </div>
-            <div class="second-column">
-               <ul>
-                <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="" asp-action="">Contacto</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="" asp-action="">Seguir pedido</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="" asp-action="">Reclamos</a>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="" asp-action="">Legales</a>
-                    </li>
-                    </ul>
 
-            </div>
- 
+        <div class="Image-div">
+            <img class="imagen-footer" src="./css/logo.png" />
+        </div>
+
+        <div class="first-column">
+            <ul class="">
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-controller="Productos" asp-action="Index" asp-route-categoria="Combos">Combos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-controller="" asp-action="">Piezas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-controller="" asp-action="">Salads</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-controller="" asp-action="">Entradas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-controller="" asp-action="">Salsas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-controller="" asp-action="">Bebidas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-controller="" asp-action="">Postres</a>
+                </li>
+            </ul>
+        </div>
+        <div class="second-column">
+            <ul>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-controller="" asp-action="">Contacto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-controller="" asp-action="">Seguir pedido</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-controller="" asp-action="">Reclamos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-controller="" asp-action="">Legales</a>
+                </li>
+            </ul>
+
+        </div>
+
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

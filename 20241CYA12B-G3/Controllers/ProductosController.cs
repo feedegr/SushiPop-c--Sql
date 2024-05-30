@@ -20,10 +20,11 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Productoes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string categoria)
         {
-            var dbContext = _context.Producto.Include(p => p.Categoria);
-            return View(await dbContext.ToListAsync());
+            var productos = await _context.Producto.Include(p => p.Categoria).Where(p=>p.Categoria.Nombre==categoria).ToListAsync();
+
+            return View(productos);
         }
 
         // GET: Productoes/Details/5

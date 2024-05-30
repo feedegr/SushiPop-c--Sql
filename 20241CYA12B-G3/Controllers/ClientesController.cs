@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _20241CYA12B_G3.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace _20241CYA12B_G3.Controllers
 {
@@ -46,9 +47,16 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Clientes/Create
-        public IActionResult Create()
+        public IActionResult Create(IdentityUser? user)
         {
-            return View();
+            if (user == null) return NotFound();
+
+            Cliente cliente = new()
+            {
+                Email = user.Email
+            };
+
+            return View(cliente);
         }
 
         // POST: Clientes/Create
@@ -56,8 +64,20 @@ namespace _20241CYA12B_G3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NumeroCliente,Id,Nombre,Apellido,Direccion,Telefono,FechaNacimiento,FechaAlta,Activo,Email")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("Nombre,Apellido,Direccion,Telefono,FechaNacimiento,Email")] Cliente cliente)
         {
+            var ultimoCliente = await _context.Cliente.OrderByDescending(c => c.NumeroCliente).FirstOrDefaultAsync();
+
+            int numeroCliente = 0;
+
+            if (ultimoCliente == null) { numeroCliente = 4200000; }
+            else { numeroCliente = ultimoCliente.NumeroCliente + 1; }
+
+
+            cliente.NumeroCliente = numeroCliente;
+            cliente.Activo = true;
+            cliente.FechaAlta = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 _context.Add(cliente);

@@ -9,10 +9,6 @@ html {
   }
 }
 
-html {
-  position: relative;
-  height: 100%;
-}
 
 body {
   margin-bottom: 60px;
@@ -90,4 +86,8 @@ footer img{
   justify-content: center;
   align-content: center;
   margin-top: 10rem;
+}
+
+.text-center{
+    height: 100%;
 }
