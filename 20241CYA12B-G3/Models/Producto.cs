@@ -27,6 +27,7 @@ namespace _20241CYA12B_G3.Models
         public string Foto { get; set; }
 
         [Display(Name = "Stock")]
+        [DefaultValue(100)]
         [Required]
         public int Stock { get; set; }
 
