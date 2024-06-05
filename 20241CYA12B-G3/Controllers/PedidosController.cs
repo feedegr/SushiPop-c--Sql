@@ -47,6 +47,21 @@ namespace _20241CYA12B_G3.Controllers
             return View(pedido);
         }
 
+        private bool ValidarNumeroPedido(int numeroPedido)
+        {
+            
+            var pedido = _context.Pedido.FirstOrDefault(p => p.NroPedido == numeroPedido);
+
+            if (pedido == null)
+            {
+               
+                TempData["ErrorMessage"] = $"El número pedido {numeroPedido} no es correcto.";
+                return false;
+            }
+
+            return true;
+        }
+
         // GET: Pedidoes/Create
         [Authorize(Roles = "CLIENTE")]
         public IActionResult Create()

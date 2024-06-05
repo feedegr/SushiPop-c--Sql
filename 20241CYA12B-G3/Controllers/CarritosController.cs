@@ -87,6 +87,20 @@ namespace _20241CYA12B_G3.Controllers
 
             // VER SI EL DESCUENTO EXISTE Y APLICARLO...
 
+            if(descuento == null)
+            {
+                _context.Add(item);
+                item.Cantidad--;
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+
+
+
+            }
+
+
             if(item == null)
             {
 

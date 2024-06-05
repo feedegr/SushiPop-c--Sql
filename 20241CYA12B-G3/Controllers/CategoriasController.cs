@@ -49,10 +49,14 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Categorias/Create
-        [Authorize(Roles = "EMPLEADO")]
+        //[Authorize(Roles = "EMPLEADO")]
         public IActionResult Create()
         {
-            return View();
+            var categorias = _context.Categoria.ToListAsync();
+
+            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Id");
+
+            return View(categorias);
         }
 
         // POST: Categorias/Create
