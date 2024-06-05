@@ -47,11 +47,13 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Productoes/Create
-        [Authorize(Roles = "EMPLEADO")]
+        //[Authorize(Roles = "EMPLEADO")]
         public IActionResult Create()
         {
+            var productos = _context.Producto.ToListAsync();
+
             ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Id");
-            return View();
+            return View(productos);
         }
 
         // POST: Productoes/Create
