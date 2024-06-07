@@ -46,6 +46,7 @@ namespace _20241CYA12B_G3.Controllers
 
             var clienteId = _context.Cliente.FirstOrDefault(c => c.Email.ToUpper() == user.Email).Id;
 
+
             var pedido = await _context.Pedido.Include(p => p.Carrito).FirstOrDefaultAsync(p => p.Carrito.ClienteId == clienteId && p.Estado == 1);
 
             if(pedido != null)
