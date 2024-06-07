@@ -7,17 +7,73 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _20241CYA12B_G3.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace _20241CYA12B_G3.Controllers
 {
     public class PedidosController : Controller
     {
         private readonly DbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public PedidosController(DbContext context)
+        public PedidosController(DbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+        // Confirmar Pedido
+        public async Task<IActionResult> ConfirmarPdido()
+        {
+
+            var user = await _userManager.GetUserAsync(User);
+
+            var carrito = await _context.Carrito
+            .Include(c => c.Cliente)
+            .Include(c => c.CarritoItems)
+            .ThenInclude(ci => ci.Producto)
+            .FirstOrDefaultAsync(c => c.Cliente.Email.ToUpper() == user.NormalizedEmail && c.Procesado == false);
+
+            //Traer pedidos de los últimos 30dias
+            var fechaInicio = DateTime.Now.AddDays(-30);
+            var pedidosRecientes = await _context.Pedido
+                .Include(p => p.Carrito)
+                .ThenInclude(c => c.Cliente)
+                .Where(p => p.FechaCompra >= fechaInicio && p.Carrito.Cliente.Email.ToUpper() == user.NormalizedEmail)
+                .ToListAsync();
+
+
+            decimal gastoEnvio;
+
+                if (pedidosRecientes.Count >= 10)
+                {
+                    gastoEnvio = 50;
+                }
+
+            
+
+
+            var Subtotal = carrito.CarritoItems.Sum(ci => ci.PrecioUnitarioConDescuento * ci.Cantidad);
+            var pedido = new Pedido
+
+            {       //  CORREGIR¡¡ 
+                    //CarritoId = carrito.Id,
+                    //FechaCompra = DateTime.Now,
+                    //Subtotal = Subtotal,
+                    //GastoEnvio = gastoEnvio,
+                    //Total = Subtotal + gastoEnvio,
+                    //Estado = 1
+            }; 
+
+            _context.Add(pedido);
+            await _context.SaveChangesAsync();
+
+            carrito.Procesado = true;
+            _context.Update(carrito);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
         // GET: Pedidos
         [Authorize(Roles = "CLIENTE")]
