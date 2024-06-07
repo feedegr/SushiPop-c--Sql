@@ -108,3 +108,43 @@ footer img{
     color: #000000;
     padding: 15px;
 }
+
+
+.card-img-overlay {
+    display: flex;
+    align-items: flex-end; 
+    justify-content: center;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
+    padding: 0;
+}
+
+.card-text {
+    font-family: "Nunito", sans-serif;
+    color: #FFFEFE;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    margin: 0;
+    padding: 10px;
+}
+
+.card {
+    border: 3px solid black;
+    height: 80%; 
+}
+
+.card-img {
+    object-fit: cover;
+    height: 100%;
+}
+
+
+.large-card .card-img {
+    height: 100%; 
+    object-fit: fill;
+}
+
+.card-row {
+    justify-content: center; 
+}
