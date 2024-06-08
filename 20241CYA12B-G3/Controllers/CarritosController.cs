@@ -27,8 +27,14 @@ namespace _20241CYA12B_G3.Controllers
         [Authorize(Roles = "CLIENTE")]
         public async Task<IActionResult> Index()
         {
-            var dbContext = _context.Carrito.Include(c => c.Cliente);
-            return View(await dbContext.ToListAsync());
+            var user = await _userManager.GetUserAsync(User);
+            var carrito = await _context.Carrito
+                .Include(c => c.Cliente)
+                .Include(c=>c.CarritoItems)
+                .ThenInclude(ci=>ci.Producto)
+                .FirstOrDefaultAsync(c=>c.Procesado==false && c.Cancelado==false && c.Cliente.Email==user.Email);
+
+            return View("Index", carrito);
         }
 
         [Authorize(Roles = "CLIENTE")]
@@ -41,9 +47,7 @@ namespace _20241CYA12B_G3.Controllers
                 return NotFound();
             }
 
-
             var user = await _userManager.GetUserAsync(User);
-
             var clienteId = _context.Cliente.FirstOrDefault(c => c.Email.ToUpper() == user.Email).Id;
 
             var pedido = await _context.Pedido.Include(p => p.Carrito).FirstOrDefaultAsync(p => p.Carrito.ClienteId == clienteId && p.Estado == 1);
