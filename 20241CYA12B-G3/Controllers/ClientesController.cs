@@ -74,12 +74,15 @@ namespace _20241CYA12B_G3.Controllers
             else { numeroCliente = ultimoCliente.NumeroCliente + 1; }
 
 
+             
             cliente.NumeroCliente = numeroCliente;
             cliente.Activo = true;
             cliente.FechaAlta = DateTime.Now;
+   
 
             if (ModelState.IsValid)
             {
+
                 _context.Add(cliente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
