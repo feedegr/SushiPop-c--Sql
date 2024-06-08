@@ -52,6 +52,7 @@ namespace _20241CYA12B_G3.Controllers
             ViewData["PedidoId"] = new SelectList(_context.Pedido, "Id", "Id");
             return View();
         }
+        
 
         // POST: Reclamos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -62,9 +63,17 @@ namespace _20241CYA12B_G3.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(reclamo);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var pedidoExistente = _context.Pedido.Any(p => p.Id == reclamo.PedidoId);
+                if (!pedidoExistente)
+                {
+                    ModelState.AddModelError("PedidoId", $"El número pedido {reclamo.PedidoId} no es correcto");
+                    ViewData["PedidoId"] = new SelectList(_context.Pedido, "Id", "Id", reclamo.PedidoId);
+                    return View(reclamo);
+                }
+                    _context.Add(reclamo);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                    
             }
             ViewData["PedidoId"] = new SelectList(_context.Pedido, "Id", "Id", reclamo.PedidoId);
             return View(reclamo);
