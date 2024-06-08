@@ -74,6 +74,52 @@ namespace _20241CYA12B_G3.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles ="CLIENTE")]
+        public async Task<IActionResult> HacerPedido(int idCarrito)
+        {
+            var carrito = await _context.Carrito
+               .Include(c => c.Cliente)
+               .Include(c => c.CarritoItems)
+               .ThenInclude(ci => ci.Producto)
+               .FirstOrDefaultAsync(c => c.Id == idCarrito);
+
+            decimal subtotal = carrito.CarritoItems.Sum(ci => ci.PrecioUnitarioConDescuento * ci.Cantidad);
+            decimal gastoEnvio = 50;
+            //TO DO FALTA CALCULAR GASTO ENVIO
+            DetallePedidoViewModel vm = new DetallePedidoViewModel();
+
+            {
+                Cliente = carrito.Cliente.Nombre + " " + carrito.Cliente.Apellido,
+                Direccion = carrito.Cliente.Direccion,
+                Subtotal = subtotal,
+                Total = subtotal + gastoEnvio,
+                Productos = carrito.CarritoItems.Select(ci => ci.Producto.Nombre).ToList()
+            };
+
+
+            return View("DetallePedido",  vm);
+        }
+
+        [Authorize(Roles = "CLIENTE")]
+        public async Task<IActionResult> CancelarPedido (int idCarrito)
+        
+        {
+            try
+            {
+                var carritoCancelar = await _context.Carrito.FindAsync(idCarrito);
+                carritoCancelar.Cancelado = true;
+                _context.Update(carritoCancelar);
+                await _context.SaveChangesAsync();
+                return StatusCode(202);
+            }
+            catch 
+            {
+                return StatusCode(304);
+            }
+           
+        } 
+
+        //TO DO METODO CONFIRMAR DE DETALLE PEDIDO
 
         // GET: Pedidos
         [Authorize(Roles = "CLIENTE")]
