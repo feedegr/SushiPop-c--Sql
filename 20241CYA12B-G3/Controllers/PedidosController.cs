@@ -86,7 +86,7 @@ namespace _20241CYA12B_G3.Controllers
             decimal subtotal = carrito.CarritoItems.Sum(ci => ci.PrecioUnitarioConDescuento * ci.Cantidad);
             decimal gastoEnvio = 50;
             //TO DO FALTA CALCULAR GASTO ENVIO
-            DetallePedidoViewModel vm = new DetallePedidoViewModel();
+            DetallePedidoViewModel vm = new DetallePedidoViewModel()
 
             {
                 Cliente = carrito.Cliente.Nombre + " " + carrito.Cliente.Apellido,
