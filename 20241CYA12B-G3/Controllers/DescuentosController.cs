@@ -61,6 +61,14 @@ namespace _20241CYA12B_G3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Dia,Porcentaje,DescuentoMaximo,Activo,ProductoId")] Descuento descuento)
         {
+            if (descuento.Porcentaje > 50)
+            {
+                ModelState.AddModelError("Porcentaje", "El porcentaje de descuento no puede ser mayor al 50%.");
+            }
+            if (descuento.DescuentoMaximo > 3000)
+            {
+                ModelState.AddModelError("DescuentoMaximo", "El descuento máximo no puede ser mayor a $3000.");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(descuento);

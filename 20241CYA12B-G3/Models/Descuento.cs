@@ -14,10 +14,12 @@ namespace _20241CYA12B_G3.Models
 
         [Display(Name = "Porcentaje")]
         [Required]
+        [Range(0, 50, ErrorMessage = "El porcentaje máximo permitido es 50%")]
         [DefaultValue(0)]
         public int Porcentaje {  get; set;}
 
         [Display(Name = "Descuento máximo")]
+        [Range(0, 3000, ErrorMessage = "El descuento máximo permitido es $3000")]
         [DefaultValue(1000)]
         public decimal DescuentoMaximo { get; set;}
          
