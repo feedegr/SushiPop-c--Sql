@@ -24,6 +24,7 @@ namespace _20241CYA12B_G3.Controllers
             var descuento = await _context.Descuento.Include(d => d.Producto).FirstOrDefaultAsync(d => d.Dia == nroDia && d.Activo);
 
             
+            
             HomeViewModel homeViewModel = new();
 
             if (descuento == null)
@@ -42,8 +43,22 @@ namespace _20241CYA12B_G3.Controllers
             }
 
 
+            if(nombreDelDia.Equals("lunes") || nombreDelDia.Equals("martes") || nombreDelDia.Equals("miercoles") || nombreDelDia.Equals("jueves"))
+            {
+                homeViewModel.MensajeHero = "Hoy " + nombreDelDia + " atendemos de 19 a 23 horas";
+            }
+            else
+            {
+                homeViewModel.MensajeHero = "Hoy " + nombreDelDia + " atendemos hasta de 11 a 14 y de 19 a 23 hs";
+            }
+                
             return View(homeViewModel);
+
         }
+
+        
+        
+
 
        
 

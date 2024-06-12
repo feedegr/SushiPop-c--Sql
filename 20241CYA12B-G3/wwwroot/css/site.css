@@ -148,3 +148,49 @@ footer img{
 .card-row {
     justify-content: center; 
 }
+
+
+
+
+.tel-container {
+    height: 15rem;
+    align-content: center;
+    text-align: start;
+    font-size: 2rem;
+    margin: 2rem;
+}
+
+.mensaje {
+    font-family: "Nunito", sans-serif;
+    color: #FFFEFE;
+    padding: 3rem;
+   
+}
+
+.texto-fav{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 40px;   
+    font-weight: bold;
+
+}
+
+.texto-fav img{
+   height: 40px;
+}
+
+
+
+.telefono {
+    font-family: "Nunito", sans-serif;
+    color: #FFFEFE;
+    margin: 2rem;
+}
+
+.color-line {
+    background-image: url('../images/delivery_guy.png');
+    background-repeat: no-repeat;
+    background-color: #f64b4c;
+    background-position-x: right;
+}
+

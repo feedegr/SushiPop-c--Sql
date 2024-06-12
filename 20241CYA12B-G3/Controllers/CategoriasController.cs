@@ -49,7 +49,7 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Categorias/Create
-        //[Authorize(Roles = "EMPLEADO")]
+        [Authorize(Roles = "EMPLEADO")]
         public IActionResult Create()
         {
             var categorias = _context.Categoria.ToListAsync();

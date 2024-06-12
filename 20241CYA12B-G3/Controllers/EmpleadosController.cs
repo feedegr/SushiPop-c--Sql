@@ -7,17 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _20241CYA12B_G3.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace _20241CYA12B_G3.Controllers
 {
     public class EmpleadosController : Controller
     {
         private readonly DbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public EmpleadosController(DbContext context)
+
+        public EmpleadosController(DbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+
+
 
         // GET: Empleados
         [Authorize(Roles = "ADMIN,EMPLEADO")]
@@ -48,8 +54,10 @@ namespace _20241CYA12B_G3.Controllers
 
         // GET: Empleados/Create
         [Authorize(Roles = "ADMIN")]
-        public IActionResult Create()
+        public  IActionResult Create()
         {
+   
+
             return View();
         }
 
@@ -58,13 +66,30 @@ namespace _20241CYA12B_G3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Legajo,Id,Nombre,Apellido,Direccion,Telefono,FechaNacimiento,FechaAlta,Activo,Email")] Empleado empleado)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Direccion,Telefono,FechaNacimiento,Email")] Empleado empleado)
         {
+
             if (ModelState.IsValid)
             {
-                _context.Add(empleado);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                IdentityUser user = new IdentityUser();
+                user.Email = user.UserName = empleado.Email;
+                var result = await _userManager.CreateAsync(user, "Password1!");
+
+                if (result.Succeeded)
+                {
+                    
+                    await _userManager.AddToRoleAsync(user, "EMPLEADO");
+                    empleado.Legajo = await GenerarLegajo();
+                    empleado.FechaAlta = DateTime.Now;
+                    empleado.Activo = true;
+
+
+                    _context.Add(empleado);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                
             }
             return View(empleado);
         }
@@ -162,5 +187,16 @@ namespace _20241CYA12B_G3.Controllers
         {
           return (_context.Empleado?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        private async Task<int?> GenerarLegajo()
+        {
+            var legajo = await _context.Empleado.MaxAsync(e => e.Legajo);
+
+            if (legajo == null) return 99000;
+
+
+            return legajo + 1;
+        }
+
     }
 }

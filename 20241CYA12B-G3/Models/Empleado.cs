@@ -7,7 +7,7 @@ namespace _20241CYA12B_G3.Models
     {
         [Required]
         [DefaultValue(99000)]
-        public int Legajo { get; set; }
+        public int? Legajo { get; set; }
 
        
     }
