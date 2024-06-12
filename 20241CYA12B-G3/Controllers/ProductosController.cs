@@ -43,6 +43,11 @@ namespace _20241CYA12B_G3.Controllers
                 return NotFound();
             }
 
+            if (producto.Stock == 0)
+            {
+                ViewBag.StockMessage = "Sin stock";
+            }
+
             return View(producto);
         }
 

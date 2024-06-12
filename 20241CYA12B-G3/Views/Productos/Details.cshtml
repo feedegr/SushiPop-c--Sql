@@ -39,6 +39,10 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Stock)
+            @if (ViewBag.StockMeesage != null)
+            {
+                <span class="text-danger">@ViewBag.StockMessage</span>
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Costo)
