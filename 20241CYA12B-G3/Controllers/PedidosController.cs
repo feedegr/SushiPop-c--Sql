@@ -33,36 +33,34 @@ namespace _20241CYA12B_G3.Controllers
             .ThenInclude(ci => ci.Producto)
             .FirstOrDefaultAsync(c => c.Cliente.Email.ToUpper() == user.NormalizedEmail && c.Procesado == false);
 
-            //Traer pedidos de los últimos 30dias
+            if (carrito == null)
+            {
+                return NotFound("No se encontró el carrito del usuario.");
+            }
+
+            decimal subtotal = carrito.CarritoItems.Sum(ci => ci.PrecioUnitarioConDescuento * ci.Cantidad);
+            decimal gastoEnvio = 80;
+
             var fechaInicio = DateTime.Now.AddDays(-30);
-            var pedidosRecientes = await _context.Pedido
-                .Include(p => p.Carrito)
-                .ThenInclude(c => c.Cliente)
-                .Where(p => p.FechaCompra >= fechaInicio && p.Carrito.Cliente.Email.ToUpper() == user.NormalizedEmail)
+            var pedidosEntregadosRecientes = await _context.Pedido
+                .Where(p => p.Estado == 5 && p.FechaCompra >= fechaInicio && p.Carrito.Cliente.Email.ToUpper() == user.NormalizedEmail)
                 .ToListAsync();
 
 
-            decimal gastoEnvio;
+            if (pedidosEntregadosRecientes.Count >= 10)
+            {
+                gastoEnvio = 0; 
+            }
 
-                if (pedidosRecientes.Count >= 10)
-                {
-                    gastoEnvio = 50;
-                }
-
-            
-
-
-            var Subtotal = carrito.CarritoItems.Sum(ci => ci.PrecioUnitarioConDescuento * ci.Cantidad);
             var pedido = new Pedido
-
-            {       //  CORREGIR¡¡ 
-                    //CarritoId = carrito.Id,
-                    //FechaCompra = DateTime.Now,
-                    //Subtotal = Subtotal,
-                    //GastoEnvio = gastoEnvio,
-                    //Total = Subtotal + gastoEnvio,
-                    //Estado = 1
-            }; 
+            {
+                CarritoId = carrito.Id,
+                FechaCompra = DateTime.Now,
+                Subtotal = subtotal,
+                GastoEnvio = gastoEnvio,
+                Total = subtotal + gastoEnvio,
+                Estado = 1 
+            };
 
             _context.Add(pedido);
             await _context.SaveChangesAsync();
@@ -83,11 +81,26 @@ namespace _20241CYA12B_G3.Controllers
                .ThenInclude(ci => ci.Producto)
                .FirstOrDefaultAsync(c => c.Id == idCarrito);
 
-            decimal subtotal = carrito.CarritoItems.Sum(ci => ci.PrecioUnitarioConDescuento * ci.Cantidad);
-            decimal gastoEnvio = 50;
-            //TO DO FALTA CALCULAR GASTO ENVIO
-            DetallePedidoViewModel vm = new DetallePedidoViewModel
+            if (carrito == null)
+            {
+                return NotFound("Carrito no encontrado.");
+            }
 
+            decimal subtotal = carrito.CarritoItems.Sum(ci => ci.PrecioUnitarioConDescuento * ci.Cantidad);
+            decimal gastoEnvio = 80; 
+
+            var user = await _userManager.GetUserAsync(User);
+            var fechaInicio = DateTime.Now.AddDays(-30);
+            var pedidosEntregadosRecientes = await _context.Pedido
+                .Where(p => p.Estado == 5 && p.FechaCompra >= fechaInicio && p.Carrito.Cliente.Email.ToUpper() == user.NormalizedEmail)
+                .ToListAsync();
+
+            if (pedidosEntregadosRecientes.Count >= 10)
+            {
+                gastoEnvio = 0; 
+            }
+
+            DetallePedidoViewModel vm = new DetallePedidoViewModel
             {
                 Cliente = carrito.Cliente.Nombre + " " + carrito.Cliente.Apellido,
                 Direccion = carrito.Cliente.Direccion,
@@ -96,8 +109,7 @@ namespace _20241CYA12B_G3.Controllers
                 Productos = carrito.CarritoItems.Select(ci => ci.Producto.Nombre).ToList()
             };
 
-
-            return View("DetallePedido",  vm);
+            return View("DetallePedido", vm);
         }
 
         [Authorize(Roles = "CLIENTE")]
@@ -149,20 +161,6 @@ namespace _20241CYA12B_G3.Controllers
             return View(pedido);
         }
 
-        private bool ValidarNumeroPedido(int numeroPedido)
-        {
-            
-            var pedido = _context.Pedido.FirstOrDefault(p => p.NroPedido == numeroPedido);
-
-            if (pedido == null)
-            {
-               
-                TempData["ErrorMessage"] = $"El número pedido {numeroPedido} no es correcto.";
-                return false;
-            }
-
-            return true;
-        }
 
         // GET: Pedidoes/Create
         [Authorize(Roles = "CLIENTE")]
@@ -179,6 +177,12 @@ namespace _20241CYA12B_G3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NroPedido,FechaCompra,Subtotal,GastoEnvio,Total,Estado,CarritoId")] Pedido pedido)
         {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound("Usuario no encontrado.");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(pedido);

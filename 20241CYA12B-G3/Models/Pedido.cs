@@ -6,6 +6,7 @@ namespace _20241CYA12B_G3.Models
     public class Pedido
     {
         public int Id { get; set; }
+        public int ClienteId {  get; set; } 
 
         [Display(Name = "Número de pedido")]
         [Required]
