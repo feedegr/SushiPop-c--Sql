@@ -194,3 +194,32 @@ footer img{
     background-position-x: right;
 }
 
+
+/* Card de locales */
+
+.card-overlay {
+    background-color: #000000; /*fondo texto */
+    bottom: 0;
+    border: 2px solid #EC1C24;
+    padding: 1px;
+    width: auto;
+}
+
+.card-title {
+    padding-top: 10px;
+    text-align: center;
+    color: #EC1C24!important;
+    font-weight: bold;
+}
+
+.card-texto {
+    font-size: 0.8rem; /* subtítulo */
+    text-align: center;
+    color: #EC1C24 !important;
+    font-weight: bold;
+}
+
+.centrar {
+    text-align: center;
+    font-family: "Nunito", sans-serif;
+}
