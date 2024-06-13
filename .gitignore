@@ -398,3 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 *.appsettings.json
 
+/20241CYA12B-G3/appsettings.json
