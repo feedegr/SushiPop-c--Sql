@@ -89,8 +89,8 @@ namespace _20241CYA12B_G3.Controllers
                     _context.Add(empleado);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
-                }
                 
+                }
             }
             return View(empleado);
         }

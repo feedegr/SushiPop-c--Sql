@@ -50,16 +50,19 @@ namespace _20241CYA12B_G3.Controllers
         // GET: Clientes/Create
         public IActionResult Create(IdentityUser? user)
         {
-            if (user == null) return NotFound();
-
-            Cliente cliente = new()
+            if (user == null)
             {
-                Email = user.Email
-            };
+
+                return NotFound();
+
+            }
+            Cliente cliente = new Cliente();
+
+            cliente.Email = user.Email;
+
 
             return View(cliente);
         }
-
         // POST: Clientes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -81,7 +84,7 @@ namespace _20241CYA12B_G3.Controllers
             cliente.NumeroCliente = numeroCliente;
             cliente.Activo = true;
             cliente.FechaAlta = DateTime.Now;
-   
+            
 
             if (ModelState.IsValid)
             {

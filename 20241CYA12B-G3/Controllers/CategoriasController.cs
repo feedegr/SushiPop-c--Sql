@@ -52,11 +52,9 @@ namespace _20241CYA12B_G3.Controllers
         [Authorize(Roles = "EMPLEADO")]
         public IActionResult Create()
         {
-            var categorias = _context.Categoria.ToListAsync();
+           
 
-            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Id");
-
-            return View(categorias);
+            return View();
         }
 
         // POST: Categorias/Create
@@ -64,11 +62,15 @@ namespace _20241CYA12B_G3.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-    [Authorize(Roles = "EMPLEADO")]
+    
     public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion")] Categoria categoria)
         {
+
+
             if (ModelState.IsValid)
             {
+                
+
                 _context.Add(categoria);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
