@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using _20241CYA12B_G3.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace _20241CYA12B_G3.Controllers
 {
@@ -66,6 +67,8 @@ namespace _20241CYA12B_G3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Nombre,Apellido,Direccion,Telefono,FechaNacimiento,Email")] Cliente cliente)
         {
+           
+
             var ultimoCliente = await _context.Cliente.OrderByDescending(c => c.NumeroCliente).FirstOrDefaultAsync();
 
             int numeroCliente = 0;

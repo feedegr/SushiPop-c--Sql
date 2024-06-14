@@ -396,6 +396,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-*.appsettings.json
 
-/20241CYA12B-G3/appsettings.json
+
+
