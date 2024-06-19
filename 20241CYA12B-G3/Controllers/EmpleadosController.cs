@@ -69,6 +69,7 @@ namespace _20241CYA12B_G3.Controllers
  
         public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Direccion,Telefono,FechaNacimiento,Email")] Empleado empleado)
         {
+            
 
             if (ModelState.IsValid)
             {
@@ -92,6 +93,7 @@ namespace _20241CYA12B_G3.Controllers
                 
                 }
             }
+            
             return View(empleado);
         }
 

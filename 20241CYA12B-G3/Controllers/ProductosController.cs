@@ -20,9 +20,12 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Productoes
-        public async Task<IActionResult> Index(string categoria)
+        public async Task<IActionResult> Index(string category)
         {
-            var productos = await _context.Producto.Include(p => p.Categoria).Where(p=>p.Categoria.Nombre==categoria).ToListAsync();
+            var productos = await _context.Producto.Include(p => p.Categoria)
+                .Include(p => p.Descuentos)
+                .Include(p => p.CarritoItems)
+                .Where(p=>p.Categoria.Nombre==category).ToListAsync();
 
             return View(productos);
         }
@@ -57,7 +60,7 @@ namespace _20241CYA12B_G3.Controllers
         {
             var productos = _context.Producto.ToListAsync();
 
-            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Id");
+            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Nombre");
             return View(productos);
         }
 
