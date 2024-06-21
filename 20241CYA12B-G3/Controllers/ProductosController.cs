@@ -22,10 +22,18 @@ namespace _20241CYA12B_G3.Controllers
         // GET: Productoes
         public async Task<IActionResult> Index(string category)
         {
-            var productos = await _context.Producto.Include(p => p.Categoria)
-                .Include(p => p.Descuentos)
-                .Include(p => p.CarritoItems)
-                .Where(p=>p.Categoria.Nombre==category).ToListAsync();
+            var query =  _context.Producto.Include(p => p.Categoria)
+              .Include(p => p.Descuentos)
+              .Include(p => p.CarritoItems).AsQueryable();
+            if (category != null)
+            {
+
+                query = query.Where(p => p.Categoria.Nombre == category);
+                
+
+          
+            }
+            var productos = await query.ToListAsync();
 
             return View(productos);
         }
@@ -55,13 +63,13 @@ namespace _20241CYA12B_G3.Controllers
         }
 
         // GET: Productoes/Create
-        //[Authorize(Roles = "EMPLEADO")]
-        public IActionResult Create()
+        [Authorize(Roles = "EMPLEADO")]
+        public async Task<IActionResult> Create()
         {
-            var productos = _context.Producto.ToListAsync();
+            //var productos = await _context.Producto.ToListAsync();
 
-            ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Nombre");
-            return View(productos);
+           ViewData["CategoriaId"] = new SelectList(_context.Categoria, "Id", "Nombre");
+            return View();
         }
 
         // POST: Productoes/Create
@@ -70,7 +78,7 @@ namespace _20241CYA12B_G3.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "EMPLEADO")]
+       
         public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion,Precio,Foto,Stock,Costo,CategoriaId")] Producto producto)
         {
             if (ModelState.IsValid)
