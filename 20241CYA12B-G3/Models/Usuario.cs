@@ -29,13 +29,10 @@ namespace _20241CYA12B_G3.Models
 
         [Required]
         public DateTime FechaNacimiento { get; set; }
-        [Required]
        
         public DateTime FechaAlta { get; set;}
-        [Required]
-        [DefaultValue(true)]
         public bool? Activo { get; set;}
-        [Required]
+        
         public string? Email { get; set;}
 
 

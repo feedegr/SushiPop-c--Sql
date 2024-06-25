@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 public class DbContext : IdentityDbContext
     {
-        public DbContext (DbContextOptions<DbContext> options)
-            : base(options)
-        {
-        }
+    public DbContext(DbContextOptions<DbContext> options) : base(options)
+
+    {
+
+    }
+        
 
         public DbSet<_20241CYA12B_G3.Models.Carrito> Carrito { get; set; } = default!;
 

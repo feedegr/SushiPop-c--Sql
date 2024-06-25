@@ -56,7 +56,7 @@ namespace _20241CYA12B_G3.Controllers
         [Authorize(Roles = "ADMIN")]
         public  IActionResult Create()
         {   
-            
+
 
             return View();
         }
@@ -70,6 +70,10 @@ namespace _20241CYA12B_G3.Controllers
         public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Direccion,Telefono,FechaNacimiento,Email")] Empleado empleado)
         {
             
+                   
+            empleado.Legajo = await GenerarLegajo();
+            empleado.FechaAlta = DateTime.Now;
+            empleado.Activo =  true;
 
             if (ModelState.IsValid)
             {
@@ -80,11 +84,7 @@ namespace _20241CYA12B_G3.Controllers
 
                 if (result.Succeeded)
                 {
-                    
                     await _userManager.AddToRoleAsync(user, "EMPLEADO");
-                    empleado.Legajo = await GenerarLegajo();
-                    empleado.FechaAlta = DateTime.Now;
-                    empleado.Activo =  true;
 
 
                     _context.Add(empleado);
