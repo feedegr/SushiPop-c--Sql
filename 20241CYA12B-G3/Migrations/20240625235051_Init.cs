@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace _20241CYA12B_G3.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -75,8 +75,8 @@ namespace _20241CYA12B_G3.Migrations
                     Telefono = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaAlta = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Activo = table.Column<bool>(type: "bit", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Activo = table.Column<bool>(type: "bit", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -106,15 +106,15 @@ namespace _20241CYA12B_G3.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Legajo = table.Column<int>(type: "int", nullable: false),
+                    Legajo = table.Column<int>(type: "int", nullable: true),
                     Nombre = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Apellido = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Direccion = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Telefono = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaAlta = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Activo = table.Column<bool>(type: "bit", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Activo = table.Column<bool>(type: "bit", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -258,8 +258,8 @@ namespace _20241CYA12B_G3.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Procesado = table.Column<bool>(type: "bit", nullable: false),
-                    Cancelado = table.Column<bool>(type: "bit", nullable: false),
+                    Procesado = table.Column<bool>(type: "bit", nullable: true),
+                    Cancelado = table.Column<bool>(type: "bit", nullable: true),
                     ClienteId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -355,7 +355,7 @@ namespace _20241CYA12B_G3.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NroPedido = table.Column<int>(type: "int", nullable: false),
-                    FechaCompra = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaCompra = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Subtotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     GastoEnvio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),

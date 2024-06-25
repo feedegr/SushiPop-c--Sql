@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using _20241CYA12B_G3.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using _20241CYA12B_G3.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using System.Collections.ObjectModel;
 
 namespace _20241CYA12B_G3.Controllers
 {
@@ -30,9 +25,9 @@ namespace _20241CYA12B_G3.Controllers
             var user = await _userManager.GetUserAsync(User);
             var carrito = await _context.Carrito
                 .Include(c => c.Cliente)
-                .Include(c=>c.CarritoItems)
-                .ThenInclude(ci=>ci.Producto)
-                .FirstOrDefaultAsync(c=>c.Procesado==false && c.Cancelado==false && c.Cliente.Email==user.Email);
+                .Include(c => c.CarritoItems)
+                .ThenInclude(ci => ci.Producto)
+                .FirstOrDefaultAsync(c => c.Procesado == false && c.Cancelado == false && c.Cliente.Email == user.Email);
 
             return View("Index", carrito);
         }
@@ -50,23 +45,25 @@ namespace _20241CYA12B_G3.Controllers
             var user = await _userManager.GetUserAsync(User);
             var cliente = await _context.Cliente.FirstOrDefaultAsync(c => c.Email.ToUpper() == user.NormalizedEmail);
 
+            var pedidos = await _context.Pedido.Include(p => p.Carrito).ToListAsync();
+
             var pedido = await _context.Pedido.Include(p => p.Carrito).FirstOrDefaultAsync(p => p.Carrito.ClienteId == cliente.Id && p.Estado == 1);
 
-            if(pedido != null)
+            if (pedido != null)
             {
                 return NotFound();
             }
 
             var cantPedidos = await _context.Pedido.Include(p => p.Carrito).Where(p => p.Carrito.ClienteId == cliente.Id && p.FechaCompra == DateTime.Today).ToListAsync();
 
-            if(cantPedidos.Count > 3)
+            if (cantPedidos.Count > 3)
             {
                 return NotFound();
             }
 
             var carrito = await _context.Carrito.Include(c => c.Cliente).Include(c => c.CarritoItems).FirstOrDefaultAsync(c => c.ClienteId == cliente.Id);
 
-            if(carrito == null)
+            if (carrito == null)
             {
                 carrito = new Carrito()
                 {
@@ -74,7 +71,7 @@ namespace _20241CYA12B_G3.Controllers
                     Cancelado = false,
                     ClienteId = cliente.Id,
                     CarritoItems = new List<CarritoItem>()
-               
+
                 };
 
                 _context.Add(carrito);
@@ -83,41 +80,30 @@ namespace _20241CYA12B_G3.Controllers
 
             var item = carrito.CarritoItems.FirstOrDefault(ci => ci.ProductoId == productoId);
 
-            //Buscar el descuento del producto
 
             var nroDia = (int)DateTime.Today.DayOfWeek;
-
             var descuento = await _context.Descuento.FirstOrDefaultAsync(d => d.Dia == nroDia && d.Activo == true && d.ProductoId == productoId);
+            decimal precioProducto = producto.Precio;
 
-            // VER SI EL DESCUENTO EXISTE Y APLICARLO...
-
-            if(descuento == null)
+            if (descuento != null)
             {
-                _context.Add(item);
-                item.Cantidad--;
-                await _context.SaveChangesAsync();
-            }
-            else
-            {
-                
-
+                // VER SI EL DESCUENTO EXISTE Y APLICARLO...
             }
 
 
-            if(item == null)
+            if (item == null)
             {
-
                 item = new CarritoItem()
                 {
-                    PrecioUnitarioConDescuento = producto.Precio,
+                    PrecioUnitarioConDescuento = precioProducto,
                     Cantidad = 1,
                     CarritoId = carrito.Id,
                     ProductoId = producto.Id,
 
-            };  
-                    _context.Add(item);
-                    await _context.SaveChangesAsync();
+                };
 
+                _context.Add(item);
+                await _context.SaveChangesAsync();
             }
             else
             {
@@ -268,14 +254,14 @@ namespace _20241CYA12B_G3.Controllers
             {
                 _context.Carrito.Remove(carrito);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CarritoExists(int id)
         {
-          return (_context.Carrito?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Carrito?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

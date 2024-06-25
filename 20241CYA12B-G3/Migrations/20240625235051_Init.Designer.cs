@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace _20241CYA12B_G3.Migrations
 {
     [DbContext(typeof(DbContext))]
-    [Migration("20240606200734_init3")]
-    partial class init3
+    [Migration("20240625235051_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,14 +32,12 @@ namespace _20241CYA12B_G3.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<bool?>("Cancelado")
-                        .IsRequired()
                         .HasColumnType("bit");
 
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
                     b.Property<bool?>("Procesado")
-                        .IsRequired()
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -110,7 +108,6 @@ namespace _20241CYA12B_G3.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<bool?>("Activo")
-                        .IsRequired()
                         .HasColumnType("bit");
 
                     b.Property<string>("Apellido")
@@ -124,11 +121,9 @@ namespace _20241CYA12B_G3.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("FechaAlta")
-                        .IsRequired()
+                    b.Property<DateTime>("FechaAlta")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FechaNacimiento")
@@ -226,7 +221,6 @@ namespace _20241CYA12B_G3.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<bool?>("Activo")
-                        .IsRequired()
                         .HasColumnType("bit");
 
                     b.Property<string>("Apellido")
@@ -240,17 +234,15 @@ namespace _20241CYA12B_G3.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("FechaAlta")
-                        .IsRequired()
+                    b.Property<DateTime>("FechaAlta")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FechaNacimiento")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Legajo")
+                    b.Property<int?>("Legajo")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -283,7 +275,6 @@ namespace _20241CYA12B_G3.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("FechaCompra")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("GastoEnvio")
