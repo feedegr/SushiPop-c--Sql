@@ -57,14 +57,14 @@ namespace _20241CYA12B_G3.Controllers
                 return NotFound();
             }
 
-            var cantPedidos = await _context.Pedido.Include(p => p.Carrito).Where(p => p.Carrito.ClienteId == clienteId && p.FechaCompra == DateTime.Today).ToListAsync();
+            var cantPedidos = await _context.Pedido.Include(p => p.Carrito).Where(p => p.Carrito.ClienteId == cliente.Id && p.FechaCompra == DateTime.Today).ToListAsync();
 
             if(cantPedidos.Count > 3)
             {
                 return NotFound();
             }
 
-            var carrito = await _context.Carrito.Include(c => c.Cliente).Include(c => c.CarritoItems).FirstOrDefaultAsync(c => c.ClienteId == clienteId);
+            var carrito = await _context.Carrito.Include(c => c.Cliente).Include(c => c.CarritoItems).FirstOrDefaultAsync(c => c.ClienteId == cliente.Id);
 
             if(carrito == null)
             {
@@ -72,7 +72,7 @@ namespace _20241CYA12B_G3.Controllers
                 {
                     Procesado = false,
                     Cancelado = false,
-                    ClienteId = clienteId,
+                    ClienteId = cliente.Id,
                     CarritoItems = new List<CarritoItem>()
                
                 };
