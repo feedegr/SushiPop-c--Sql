@@ -45,8 +45,6 @@ namespace _20241CYA12B_G3.Controllers
             var user = await _userManager.GetUserAsync(User);
             var cliente = await _context.Cliente.FirstOrDefaultAsync(c => c.Email.ToUpper() == user.NormalizedEmail);
 
-            var pedidos = await _context.Pedido.Include(p => p.Carrito).ToListAsync();
-
             var pedido = await _context.Pedido.Include(p => p.Carrito).FirstOrDefaultAsync(p => p.Carrito.ClienteId == cliente.Id && p.Estado == 1);
 
             if (pedido != null)
