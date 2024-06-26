@@ -89,7 +89,7 @@ footer img{
     background-image: url("bg_hero.png");
     height: 15rem;
     align-content: center;
-    opacity: 80%;
+    opacity: 70%;
     z-index:10;
 }
 
@@ -127,7 +127,18 @@ footer img{
     background: rgba(0, 0, 0, 0.5);
     margin: 0;
     padding: 10px;
+    
 }
+
+    .card-text a {
+        text-decoration: none;
+        color: #FFFEFE;
+        font-weight: bold;
+    }
+
+    .card-text a:hover {
+        font-size:15px;
+    }
 
 .card {
     border: 3px solid black;
@@ -195,8 +206,8 @@ footer img{
 }
 
 
-/* Card de locales */
 
+/* Card de locales */
 .card-overlay {
     background-color: #000000; /*fondo texto */
     bottom: 0;

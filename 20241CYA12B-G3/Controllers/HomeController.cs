@@ -39,6 +39,7 @@ namespace _20241CYA12B_G3.Controllers
                 homeViewModel.NombreDia = nombreDelDia;
                 homeViewModel.Descuento = descuento.Porcentaje + " %";
                 homeViewModel.Producto = descuento.Producto.Nombre;
+                homeViewModel.MensajeHero = "X";
            
             }
 

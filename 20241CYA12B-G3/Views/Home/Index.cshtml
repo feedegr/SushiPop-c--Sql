@@ -6,7 +6,7 @@
 
 <div class="text-center">
       
-    @if(Model.MensajeHero == "")
+    @if(Model.MensajeHero != "X")
     {
         <h1 class="home-banner">¡Hoy es @Model.NombreDia, ahorra un @Model.Descuento en @Model.Producto</h1>
     }
@@ -29,7 +29,7 @@
             <div class="card large-card">
                 <img src="~/images/tabla.png" class="card-img" alt="salmón Alaska XL">
                 <div class="card-img-overlay">
-                    <p class="card-text">Combo 100% salmón Alaska XL de 40 piezas</p>
+                    <p class="card-text"><a asp-controller="Productos" asp-action="Details" asp-route-id="1">Combo 100% salmón Alaska XL de 40 piezas</a></p>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
             <div class="card">
                 <img src="~/images/fav_postre.png" class="card-img" alt="postre">
                 <div class="card-img-overlay">
-                    <p class="card-text">Postre helado Oreo</p>
+                    <p class="card-text"><a asp-controller="Productos" asp-action="Details" asp-route-id="15">Postre helado Oreo</a></p>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
             <div class="card">
                 <img src="~/images/fav_arrolladitos.png" class="card-img" alt="Empanaditas">
                 <div class="card-img-overlay">
-                    <p class="card-text">Empanaditas chinas de carne</p>
+                    <p class="card-text"><a asp-controller="Productos" asp-action="Details" asp-route-id="7">Empanaditas chinas de carne</a></p>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
             <div class="card large-card">
                 <img src="~/images/fav_tempura.png" class="card-img" alt="Langostinos">
                 <div class="card-img-overlay">
-                    <p class="card-text">Langostinos rebozados en panko fritos con salsa de tamarindo</p>
+                    <p class="card-text"><a asp-controller="Productos" asp-action="Details" asp-route-id="5">Langostinos rebozados en panko fritos con salsa de tamarindo</a></p>
                 </div>
             </div>
         </div>
