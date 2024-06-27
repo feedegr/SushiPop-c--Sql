@@ -21,7 +21,7 @@
             <th>
                 Cantidad
             </th>
-            <th></th>
+            
         </tr>
     </thead>
     <tbody>
@@ -46,5 +46,5 @@
     </tbody>
 </table>
 
-                <a asp-controller="Pedidos" asp-action="HacerPedido" asp-route-idCarrito="@Model.Id">Hacer pedido</a>
-                <a asp-controller="Carrito" asp-action="Delete">Eliminar Carrito</a>
+                <a asp-controller="Pedidos" asp-action="HacerPedido" asp-route-idCarrito=@Model.Id>Hacer pedido</a>
+                <a asp-controller="Carritos" asp-action="VaciarCarrito" asp-route-id=@Model.Id>Eliminar Carrito</a>

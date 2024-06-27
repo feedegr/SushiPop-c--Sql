@@ -11,6 +11,6 @@
 
         public virtual Pedido? Pedido { get; set; }
 
-        public ICollection<CarritoItem>? CarritoItems { get; set; }
+        public List<CarritoItem>? CarritoItems { get; set; }
     }
 }

@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
+using System.Collections.Generic;
+
 
 namespace _20241CYA12B_G3.Controllers
 {
@@ -99,12 +102,13 @@ namespace _20241CYA12B_G3.Controllers
                     ProductoId = producto.Id,
 
                 };
-
+                
                 _context.Add(item);
                 await _context.SaveChangesAsync();
             }
             else
             {
+                
                 item.Cantidad++;
                 _context.Update(item);
                 await _context.SaveChangesAsync();
@@ -261,5 +265,25 @@ namespace _20241CYA12B_G3.Controllers
         {
             return (_context.Carrito?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
+        public async Task<IActionResult> VaciarCarrito(int? id)
+        {
+
+            if(id == null || _context.Carrito == null)
+            {
+                return NotFound();
+            }
+
+            var carritoPorVaciar =  await _context.Carrito.FirstOrDefaultAsync(e => e.Id == id);
+
+            carritoPorVaciar.CarritoItems.Clear();
+
+            return RedirectToAction(nameof(Index));
+
+
+        }
+
+
     }
 }
