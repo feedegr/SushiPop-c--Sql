@@ -6,13 +6,13 @@
 
 <div class="text-center">
       
-    @if(Model.MensajeHero != "X")
+    @if(Model.MensajeHero != "")
     {
-        <h1 class="home-banner">¡Hoy es @Model.NombreDia, ahorra un @Model.Descuento en @Model.Producto</h1>
+        <h1>@Model.MensajeHero</h1>
     }
     else
     {
-        <h1>@Model.MensajeHero</h1>
+        <h1 class="home-banner">¡Hoy es @Model.NombreDia, ahorra un @Model.Descuento en @Model.Producto</h1>
 
 
     }
@@ -67,7 +67,7 @@
 <div class="tel-container">
     <div class="row color-line">
             
-        <p class="mensaje">@Model.MensajeHero</p>
+        <p class="mensaje">@Model.mensajeHorario</p>
         <p class="telefono"> +541140044004</p>
 
     </div>

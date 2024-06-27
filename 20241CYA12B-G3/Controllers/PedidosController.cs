@@ -22,7 +22,7 @@ namespace _20241CYA12B_G3.Controllers
             _userManager = userManager;
         }
         // Confirmar Pedido
-        public async Task<IActionResult> ConfirmarPdido()
+        public async Task<IActionResult> ConfirmarPedido()
         {
 
             var user = await _userManager.GetUserAsync(User);
@@ -134,8 +134,7 @@ namespace _20241CYA12B_G3.Controllers
         //TO DO METODO CONFIRMAR DE DETALLE PEDIDO
 
         // GET: Pedidos
-        [Authorize(Roles = "CLIENTE")]
-        [Authorize(Roles = "EMPLEADO")]
+        [Authorize(Roles = "CLIENTE,EMPLEADO")]
         public async Task<IActionResult> Index()
         {
             var dbContext = _context.Pedido.Include(p => p.Carrito);

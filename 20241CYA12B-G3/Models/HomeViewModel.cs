@@ -6,7 +6,7 @@
         public string Descuento { get; set; } = string.Empty;
         public string Producto { get; set; } = string.Empty;
         public string MensajeHero { get; set;} = string.Empty;
-
+        public string mensajeHorario { get; set; } = string.Empty;
 
 
 

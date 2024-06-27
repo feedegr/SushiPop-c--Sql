@@ -39,18 +39,18 @@ namespace _20241CYA12B_G3.Controllers
                 homeViewModel.NombreDia = nombreDelDia;
                 homeViewModel.Descuento = descuento.Porcentaje + " %";
                 homeViewModel.Producto = descuento.Producto.Nombre;
-                homeViewModel.MensajeHero = "X";
+                homeViewModel.MensajeHero = "";
            
             }
 
 
             if(nombreDelDia.Equals("lunes") || nombreDelDia.Equals("martes") || nombreDelDia.Equals("miercoles") || nombreDelDia.Equals("jueves"))
             {
-                homeViewModel.MensajeHero = "Hoy " + nombreDelDia + " atendemos de 19 a 23 horas";
+                homeViewModel.mensajeHorario = "Hoy " + nombreDelDia + " atendemos de 19 a 23 horas";
             }
             else
             {
-                homeViewModel.MensajeHero = "Hoy " + nombreDelDia + " atendemos hasta de 11 a 14 y de 19 a 23 hs";
+                homeViewModel.mensajeHorario = "Hoy " + nombreDelDia + " atendemos hasta de 11 a 14 y de 19 a 23 hs";
             }
                 
             return View(homeViewModel);

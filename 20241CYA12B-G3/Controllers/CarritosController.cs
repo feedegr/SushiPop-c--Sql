@@ -277,7 +277,9 @@ namespace _20241CYA12B_G3.Controllers
 
             var carritoPorVaciar =  await _context.Carrito.FirstOrDefaultAsync(e => e.Id == id);
 
-            carritoPorVaciar.CarritoItems.Clear();
+            carritoPorVaciar.Cancelado = true;
+            _context.Update(carritoPorVaciar);
+            await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
 
